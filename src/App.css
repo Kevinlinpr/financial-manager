@@ -91,3 +91,19 @@
   border: solid 2px #546e7a;
   border-radius: 5px;
 }
+
+.web-select-type-font{
+  font-family: "ZhenyanGB";
+  font-size:15px;
+  color: #546e7a;
+}
+.web-select-date-font{
+  font-family: "ZhenyanGB";
+  font-size:15px;
+  color: #546e7a;
+}
+::-webkit-inner-spin-button { visibility: hidden; }
+
+::-webkit-calendar-picker-indicator {      /*这是控制下拉小箭头的*/
+  color: #666;
+}
