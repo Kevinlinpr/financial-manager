@@ -24,9 +24,9 @@ function App() {
   let [editBtBk,setEditBtBk] = useState(primaryColor);
   let [editFtColor,setEditFtColor] = useState('white');
   let [edit,setEdit] = useState(true);
-  let [name,setName] = useState('');
-  let [foundNumb,setFoundNumb] = useState(0);
-  let [found,setFound] = useState('');
+  let [name,setName] = useState('某某某');
+  let [foundNumb,setFoundNumb] = useState(100);
+  let [found,setFound] = useState('100');
   let [unit,setUnit] = useState(0);
   let [guarantee,setGuarantee] = useState(65);
   let [robust,setRobust] = useState(25);
@@ -90,9 +90,9 @@ function App() {
             {edit?
             <>
               <span className='web-font'>从</span>
-              <input className='web-select-date-font' type='date' style={{height:'30px',width:'150px',border:'solid 2px white',borderRadius:'5px'}} onChange={(e)=>{setDateFrom(e.currentTarget.value)}}/>
+              <input className='web-select-date-font' id='date-from' type='date' style={{height:'30px',width:'150px',border:'solid 2px white',borderRadius:'5px'}} onChange={(e)=>{setDateFrom(e.currentTarget.value)}}/>
               <span className='web-font'>至</span>
-              <input className='web-select-date-font' type='date' style={{height:'30px',width:'150px',border:'solid 2px white',borderRadius:'5px'}} onChange={(e)=>{setDateTo(e.currentTarget.value)}}/>
+              <input className='web-select-date-font' id='date-to' type='date' style={{height:'30px',width:'150px',border:'solid 2px white',borderRadius:'5px'}} onChange={(e)=>{setDateTo(e.currentTarget.value)}}/>
               {datefrom&&dateto?
               <>
                 <span className='web-font'>共计</span>
@@ -394,6 +394,13 @@ function App() {
             <div style={{width:'100%',height:'25%',display:'flex',alignItems:'center',justifyContent:'flex-end'}}>
             <span className='sector-font' style={{color:'#cfd8dc'}}>实际收益</span>
           </div>}
+          {foundNumb!=0&&datefrom&&dateto&&GetNumberOfDays(datefrom,dateto)>0?
+              <div style={{width:'100%',height:'25%',display:'flex',alignItems:'center',justifyContent:'flex-end'}}>
+              <span className='sector-font'>预计本利：</span>
+            </div>:
+            <div style={{width:'100%',height:'25%',display:'flex',alignItems:'center',justifyContent:'flex-end'}}>
+            <span className='sector-font' style={{color:'#cfd8dc'}}>预计本利</span>
+          </div>}
           </div>
           <div style={{width:'100px',height:'160px'}}>
               {foundNumb!=0?
@@ -406,6 +413,12 @@ function App() {
               <div style={{width:'100%',height:'25%',display:'flex',alignItems:'center'}}>
               <span className='sector-font' style={{color:'#2683c6'}}>{
               ((((guarantee/100*guaranteeTypeStatic/100+robust/100*robustTypeIncrease/100+radio/100*radioTypeIncrease/100)*foundNumb)*GetNumberOfDays(datefrom,dateto)/365).toFixed(2)).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+              }</span><span className='sector-font'>{unitSticker[unit]}</span>
+              </div>:null}
+              {foundNumb!=0&&datefrom&&dateto&&GetNumberOfDays(datefrom,dateto)>0?
+              <div style={{width:'100%',height:'25%',display:'flex',alignItems:'center'}}>
+              <span className='sector-font' style={{color:'#2683c6'}}>{
+              ((((guarantee/100*guaranteeTypeStatic/100+robust/100*robustTypeIncrease/100+radio/100*radioTypeIncrease/100)*foundNumb)*GetNumberOfDays(datefrom,dateto)/365+Number(foundNumb)).toFixed(2)).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
               }</span><span className='sector-font'>{unitSticker[unit]}</span>
               </div>:null}
           </div>
